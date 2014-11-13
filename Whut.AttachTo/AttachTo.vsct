@@ -84,6 +84,27 @@
           <ButtonText>Attach to NUnit</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidAttachToCmdSet" id="cmdidWhutAttachToArcSOC" priority="0x0100" type="Button">
+        <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>cmdidWhutAttachToArcSOC</CommandName>
+          <ButtonText>Attach to ArcSOC</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidAttachToCmdSet" id="cmdidWhutAttachToArcMap" priority="0x0100" type="Button">
+        <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>cmdidWhutAttachToArcMap</CommandName>
+          <ButtonText>Attach to ArcMap</ButtonText>
+        </Strings>
+      </Button>
+
     </Buttons>
    
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -107,6 +128,8 @@
       <IDSymbol name="cmdidWhutAttachToIIS" value="0x0100" />
       <IDSymbol name="cmdidWhutAttachToIISExpress" value="0x0101" />
       <IDSymbol name="cmdidWhutAttachToNUnit" value="0x0102" />
+      <IDSymbol name="cmdidWhutAttachToArcSOC" value="0x0103"/>
+      <IDSymbol name="cmdidWhutAttachToArcMap" value="0x0104"/>
     </GuidSymbol>
     
     <GuidSymbol name="guidImages" value="{7cecfc21-6262-422a-93dd-223db26a763c}">
