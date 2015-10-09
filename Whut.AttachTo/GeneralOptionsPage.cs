@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Microsoft.VisualStudio.Shell;
 
-namespace Whut.AttachTo
+namespace AttachTo
 {
     public class GeneralOptionsPage : DialogPage
     {
@@ -10,7 +10,8 @@ namespace Whut.AttachTo
             ShowAttachToIIS = true;
             ShowAttachToArcSOC = true;
             ShowAttachToArcMap = true;
-
+            ShowAttachToArcCatalog = true;
+            ShowAttachToDBTool = true;
             ShowAttachToIISExpress = false;
             ShowAttachToNUnit = false;
         }
@@ -39,5 +40,15 @@ namespace Whut.AttachTo
         [DisplayName("Show 'Attach to ArcMap' command")]
         [Description("Show 'Attach to ArcMap' command in Tools menu.")]
         public bool ShowAttachToArcMap { get; set; }
+
+        [Category("General")]
+        [DisplayName("Show 'Attach to ArcCatalog' command")]
+        [Description("Show 'Attach to ArcCatalog' command in Tools menu.")]
+        public bool ShowAttachToArcCatalog { get; set; }
+
+        [Category("General")]
+        [DisplayName("Show 'Attach to DBTool' command")]
+        [Description("Show 'Attach to DBTool' command in Tools menu.")]
+        public bool ShowAttachToDBTool { get; set; }
     }
 }
