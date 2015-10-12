@@ -122,11 +122,11 @@
     </Bitmaps>
   </Commands>
   <KeyBindings>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcMap" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD1"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="IIS" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD2"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcSOC" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD3"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="DBTool" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD4"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcCatalog" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD5"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="ArcMap" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD1" mod2="CONTROL" key2="A"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="IIS" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD2" mod2="CONTROL" key2="A"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="ArcSOC" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD3" mod2="CONTROL" key2="A"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="DBTool" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD4" mod2="CONTROL" key2="A"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="ArcCatalog" editor="guidVSStd97" mod1="CONTROL" key1="VK_NUMPAD5" mod2="CONTROL" key2="A"/>
   </KeyBindings>
   <Symbols>
     <!-- This is the package guid. -->
