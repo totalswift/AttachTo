@@ -1,8 +1,10 @@
-AttachTo v1.0.3 - 2015-10-11
- - Added more icons
- - Added hotkeys
- - Added animations and notifications in status bar
-
+AttachTo v1.0.3 - 2015-10-25
+ - Added hotkeys support
+ - Added more programs
+ - Added more different icons
+ - Added status bar notifications and animations
+ - Added faster attaching to processes
+ - Added nuget packages and newer Visual Studio SDK dlls
 AttachTo v1.0.1 - 2012-02-08
  - Fixed that show/hide menu commands where not applied immediately after Visual Studio restart
  - Added attaching also to nunit-console.exe process, and x86 counterparts of all NUnit processes
