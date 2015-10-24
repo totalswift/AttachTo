@@ -1,10 +1,8 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio;
+﻿using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace AttachTo
@@ -43,22 +41,18 @@ namespace AttachTo
             var menuItemCommand = new OleMenuCommand((sender, e) =>
             {
                 var statusBar = (IVsStatusbar)GetService(typeof(SVsStatusbar));
-                bool processFound = false;
-                var dte = (DTE)GetService(typeof(DTE));
-                      
-                foreach (var process in dte.Debugger.LocalProcesses.Cast<Process>().Where(p => IsToAttach(p, programsToAttach)))
+                foreach (string program in programsToAttach)
                 {
-                    processFound = true;
-                    NotifyInStatusBar(statusBar, string.Format("Attaching to process {0}", process.Name));
-                    NotifyAttaching(statusBar, process);
-                    process.Attach();
+                    NotifyInStatusBar(statusBar, 
+                        string.Format("AttachTo: Attaching to process {0}", 
+                        program));
+                    if (!Attach(statusBar, program))
+                    {
+                        NotifyInStatusBar(statusBar,
+                            string.Format("AttachTo: process {0} is not running!",
+                            string.Join(" ", programsToAttach)));
+                    }
                 }
-
-                if(!processFound)
-                    NotifyInStatusBar(
-                        statusBar, 
-                        string.Format("AttachTo: process {0} is not running!",
-                        string.Join(" ", programsToAttach)));
             }, 
             new CommandID(GuidList.guidAttachToCmdSet, (int)commandId));
 
@@ -66,19 +60,48 @@ namespace AttachTo
             mcs.AddCommand(menuItemCommand);
         }
 
-        private static void NotifyAttaching(IVsStatusbar statusBar, Process process)
+        /// <summary>
+        /// Attaches to running process
+        /// </summary>
+        /// <param name="statusBar"></param>
+        /// <param name="processName"></param>
+        /// <returns>True if attaching succeeds</returns>
+        private static bool Attach(IVsStatusbar statusBar, string processName)
         {
             // Use the standard Visual Studio icon for finding files
-            object icon = (short)Microsoft.VisualStudio.Shell.Interop.Constants.SBAI_Find;
-
+            object icon = (short)Constants.SBAI_Find;
             // Display the icon in the Animation region.
             statusBar.Animation(1, ref icon);
 
-            // Do long action
-            process.Attach();
+            IVsDebugger3 debugger = GetGlobalService(typeof(IVsDebugger)) as IVsDebugger3;
+            VsDebugTargetInfo3[] debugTargetInfo = new VsDebugTargetInfo3[1];
+            debugTargetInfo[0].bstrExe = processName;
+            debugTargetInfo[0].bstrRemoteMachine = null;
+            debugTargetInfo[0].dlo = (uint)DEBUG_LAUNCH_OPERATION.DLO_AlreadyRunning;
+            debugTargetInfo[0].guidLaunchDebugEngine = Guid.Empty;
+            debugTargetInfo[0].dwDebugEngineCount = 1;
 
-            // Stop the animation. 
-            statusBar.Animation(0, ref icon);
+            Guid guidDbgEngine = VSConstants.DebugEnginesGuids.ManagedOnly_guid;
+            IntPtr pGuids = Marshal.AllocCoTaskMem(Marshal.SizeOf(guidDbgEngine));
+            Marshal.StructureToPtr(guidDbgEngine, pGuids, false);
+            debugTargetInfo[0].pDebugEngines = pGuids;
+
+            VsDebugTargetProcessInfo[] launchResults = new VsDebugTargetProcessInfo[1];
+            try
+            {
+                return debugger.LaunchDebugTargets3(
+                        (uint)debugTargetInfo.Length, 
+                        debugTargetInfo, 
+                        launchResults) == VSConstants.S_OK;
+            }
+            finally
+            {
+                if (pGuids != IntPtr.Zero)
+                    Marshal.FreeCoTaskMem(pGuids);
+
+                // Stop the animation. 
+                statusBar.Animation(0, ref icon);
+            }
         }
 
         private static void NotifyInStatusBar(IVsStatusbar statusBar, string message)
@@ -100,11 +123,6 @@ namespace AttachTo
             // Clear the status bar text.
             statusBar.FreezeOutput(0);
             statusBar.Clear();
-        }
-
-        private static bool IsToAttach(Process process, params string[] programsList)
-        {
-            return programsList.Any(p => process.Name.EndsWith(p, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
