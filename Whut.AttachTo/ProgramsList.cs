@@ -11,12 +11,6 @@ namespace AttachTo
 
         public const uint NUnit = 0x102;
 
-        public const uint ArcSOC = 0x103;
-
-        public const uint ArcMap = 0x104;
-
-        public const uint ArcCatalog = 0x105;
-
-        public const uint DBTool = 0x106;
+        public const uint DotNet = 0x103;
     }
 }

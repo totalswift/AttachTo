@@ -74,40 +74,13 @@
           <ButtonText>Attach to NUnit</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidAttachToCmdSet" id="ArcSOC" priority="0x0100" type="Button">
+      <Button guid="guidAttachToCmdSet" id="DotNet" priority="0x0100" type="Button">
         <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpPicBlueGlobe" />
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>ArcSOC</CommandName>
-          <ButtonText>Attach to ArcSOC</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidAttachToCmdSet" id="ArcMap" priority="0x0100" type="Button">
-        <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>ArcMap</CommandName>
-          <ButtonText>Attach to ArcMap</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidAttachToCmdSet" id="ArcCatalog" priority="0x0100" type="Button">
-        <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>ArcCatalog</CommandName>
-          <ButtonText>Attach to ArcCatalog</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidAttachToCmdSet" id="DBTool" priority="0x0100" type="Button">
-        <Parent guid="guidAttachToCmdSet" id="WhutAttachToMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic2" />
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>DBTool</CommandName>
-          <ButtonText>Attach to DBTool</ButtonText>
+          <CommandName>DotNet</CommandName>
+          <ButtonText>Attach to DotNet.exe</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -122,11 +95,8 @@
     </Bitmaps>
   </Commands>
   <KeyBindings>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcMap" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD1" mod2="CONTROL" key1="R"/>
+    <KeyBinding guid="guidAttachToCmdSet" id="DotNet" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD1" mod2="CONTROL" key1="R"/>
     <KeyBinding guid="guidAttachToCmdSet" id="IIS" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD2" mod2="CONTROL" key1="R"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcSOC" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD3" mod2="CONTROL" key1="R"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="DBTool" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD4" mod2="CONTROL" key1="R"/>
-    <KeyBinding guid="guidAttachToCmdSet" id="ArcCatalog" editor="guidVSStd97" mod1="CONTROL" key2="VK_NUMPAD5" mod2="CONTROL" key1="R"/>
   </KeyBindings>
   <Symbols>
     <!-- This is the package guid. -->
@@ -137,10 +107,7 @@
       <IDSymbol name="IIS" value="0x0100" />
       <IDSymbol name="IISExpress" value="0x0101" />
       <IDSymbol name="NUnit" value="0x0102" />
-      <IDSymbol name="ArcSOC" value="0x0103"/>
-      <IDSymbol name="ArcMap" value="0x0104"/>
-      <IDSymbol name="ArcCatalog" value="0x0105"/>
-      <IDSymbol name="DBTool" value="0x0106"/>
+      <IDSymbol name="DotNet" value="0x0103"/>
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{7cecfc21-6262-422a-93dd-223db26a763c}">
       <IDSymbol name="bmpPic1" value="1" />

@@ -7,13 +7,10 @@ namespace AttachTo
     {
         public GeneralOptionsPage()
         {
-            ShowAttachToIIS = true;
-            ShowAttachToArcSOC = true;
-            ShowAttachToArcMap = true;
-            ShowAttachToArcCatalog = true;
-            ShowAttachToDBTool = true;
+            ShowAttachToIIS = false;
             ShowAttachToIISExpress = false;
             ShowAttachToNUnit = false;
+            ShowAttachToDotNet = true;
         }
 
         [Category("General")]
@@ -32,23 +29,8 @@ namespace AttachTo
         public bool ShowAttachToNUnit { get; set; }
 
         [Category("General")]
-        [DisplayName("Show 'Attach to ArcSOC' command")]
-        [Description("Show 'Attach to ArcSOC' command in Tools menu.")]
-        public bool ShowAttachToArcSOC { get; set; }
-
-        [Category("General")]
-        [DisplayName("Show 'Attach to ArcMap' command")]
-        [Description("Show 'Attach to ArcMap' command in Tools menu.")]
-        public bool ShowAttachToArcMap { get; set; }
-
-        [Category("General")]
-        [DisplayName("Show 'Attach to ArcCatalog' command")]
-        [Description("Show 'Attach to ArcCatalog' command in Tools menu.")]
-        public bool ShowAttachToArcCatalog { get; set; }
-
-        [Category("General")]
-        [DisplayName("Show 'Attach to DBTool' command")]
-        [Description("Show 'Attach to DBTool' command in Tools menu.")]
-        public bool ShowAttachToDBTool { get; set; }
+        [DisplayName("Show 'Attach to DotNet.exe' command")]
+        [Description("Show 'Attach to DotNet.exe' command in Tools menu.")]
+        public bool ShowAttachToDotNet { get; set; }
     }
 }

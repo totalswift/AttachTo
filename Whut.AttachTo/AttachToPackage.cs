@@ -7,6 +7,10 @@ using System.Runtime.InteropServices;
 
 namespace AttachTo
 {
+    using EnvDTE;
+
+    using Constants = Microsoft.VisualStudio.Shell.Interop.Constants;
+
     //// This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is a package.
     [PackageRegistration(UseManagedResourcesOnly = true)]
     //// This attribute is used to register the informations needed to show the this package in the Help/About dialog of Visual Studio.
@@ -27,10 +31,7 @@ namespace AttachTo
             AddAttachToCommand(mcs, ProgramsList.IISExpress, gop => gop.ShowAttachToIISExpress, "IISEXPRESS.exe");
             AddAttachToCommand(mcs, ProgramsList.NUnit, gop => gop.ShowAttachToNUnit, "nunit-agent.exe", "nunit.exe", "nunit-console.exe", 
                 "nunit-agent-x86.exe", "nunit-x86.exe", "nunit-console-x86.exe");
-            AddAttachToCommand(mcs, ProgramsList.ArcSOC, gop => gop.ShowAttachToArcSOC, "ArcSOC.exe");
-            AddAttachToCommand(mcs, ProgramsList.ArcMap, gop => gop.ShowAttachToArcMap, "ArcMap.exe");
-            AddAttachToCommand(mcs, ProgramsList.ArcCatalog, gop => gop.ShowAttachToArcCatalog, "ArcCatalog.exe");
-            AddAttachToCommand(mcs, ProgramsList.DBTool, gop => gop.ShowAttachToDBTool, "DBTool.exe");
+            AddAttachToCommand(mcs, ProgramsList.DotNet, gop => gop.ShowAttachToDotNet, "dotnet.exe");
         }
 
         private void AddAttachToCommand(OleMenuCommandService mcs, 
@@ -66,39 +67,28 @@ namespace AttachTo
         /// <param name="statusBar"></param>
         /// <param name="processName"></param>
         /// <returns>True if attaching succeeds</returns>
-        private static bool Attach(IVsStatusbar statusBar, string processName)
+        private bool Attach(IVsStatusbar statusBar, string processName)
         {
-            // Use the standard Visual Studio icon for finding files
             object icon = (short)Constants.SBAI_Find;
-            // Display the icon in the Animation region.
             statusBar.Animation(1, ref icon);
-
-            IVsDebugger3 debugger = GetGlobalService(typeof(IVsDebugger)) as IVsDebugger3;
-            VsDebugTargetInfo3[] debugTargetInfo = new VsDebugTargetInfo3[1];
-            debugTargetInfo[0].bstrExe = processName;
-            debugTargetInfo[0].bstrRemoteMachine = null;
-            debugTargetInfo[0].dlo = (uint)DEBUG_LAUNCH_OPERATION.DLO_AlreadyRunning;
-            debugTargetInfo[0].guidLaunchDebugEngine = Guid.Empty;
-            debugTargetInfo[0].dwDebugEngineCount = 1;
-
-            Guid guidDbgEngine = VSConstants.DebugEnginesGuids.ManagedOnly_guid;
-            IntPtr pGuids = Marshal.AllocCoTaskMem(Marshal.SizeOf(guidDbgEngine));
-            Marshal.StructureToPtr(guidDbgEngine, pGuids, false);
-            debugTargetInfo[0].pDebugEngines = pGuids;
-
-            VsDebugTargetProcessInfo[] launchResults = new VsDebugTargetProcessInfo[1];
             try
             {
-                return debugger.LaunchDebugTargets3(
-                        (uint)debugTargetInfo.Length, 
-                        debugTargetInfo, 
-                        launchResults) == VSConstants.S_OK;
+                var dte = (DTE)GetService(typeof(DTE));
+                foreach (Process process in dte.Debugger.LocalProcesses)
+                {
+                    if (process.Name.EndsWith(processName))
+                    {
+                        process.Attach();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
             finally
             {
-                if (pGuids != IntPtr.Zero)
-                    Marshal.FreeCoTaskMem(pGuids);
-
                 // Stop the animation. 
                 statusBar.Animation(0, ref icon);
             }
